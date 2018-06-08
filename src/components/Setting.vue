@@ -2,12 +2,12 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
 			
-			<h1  style="color:white" class="mui-title">设置</h1>
+			<h1  style="color:white" class="mui-title">Settings</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<router-link to="/service" class="mui-tab-item">
+			<router-link to="/schedule" class="mui-tab-item">
 				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">Services</span>
+				<span class="mui-tab-label">Schedule</span>
 			</router-link>
 			<router-link to="/order" class="mui-tab-item">
 				<span class="mui-icon mui-icon-list"></span>
@@ -42,7 +42,7 @@
 							My Reviews
 						</router-link>
 					</li>
-					<li class="mui-table-view-cell">
+					<!-- <li class="mui-table-view-cell">
 						<a class="mui-navigate-right">
 							Coupons
 						</a>
@@ -51,7 +51,7 @@
 						<a class="mui-navigate-right">
 							Referal
 						</a>
-					</li>
+					</li> -->
 				</ul>
 				<ul class="mui-table-view" style="margin-top: 25px;">
 					<li class="mui-table-view-cell">

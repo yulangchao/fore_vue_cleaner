@@ -43,6 +43,21 @@
 				<div class="mui-input-row">
 					<input type="number" class="mui-input-clear"  v-model="user.phone" placeholder="Phone">
 				</div>
+				<div class="mui-input-row">
+					<input type="number" class="mui-input-clear"  v-model="user.pay_rate" placeholder="Pay rate">
+				</div>
+        <div class="mui-input-row">
+          <div class="">
+            <select class="" v-model="user.city">
+                <option value="null">City</option>
+                <option value="1">Vancouver</option>
+                <option value="2">Richmond</option>
+                <option value="3">Burnaby</option>
+                <option value="4">Coquiltlam</option>
+                <option value="5">Surrey</option>
+            </select>
+          </div>
+        </div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary mui-btn-block" @click="change">Change</button>&nbsp;&nbsp;
         </div>
@@ -73,9 +88,6 @@ export default {
     console.log(this.user);
   },
   watch: {
-    phone: function(val) {
-      this.phone = val.substring(0, 10);
-    }
   },
   methods: {
     showImage: function(selected_image) {
@@ -86,7 +98,7 @@ export default {
       this.images.splice(this.images.indexOf(selected_image), 1);
     },
     change: function() {
-      if (this.user.phone.length != 10) {
+      if (!this.user.phone || this.user.phone.length != 10) {
         mui.toast("Phone Number is not Correct!");
         return;
       }
@@ -97,11 +109,13 @@ export default {
       };
       axios
         .post(
-          "http://foreclean.tk:8000/api/changeUserSetting",
+          "http://foreclean.tk:8000/api/changeCleanerSetting",
           JSON.stringify({
-            avatar: this.images.length == 0 ? null : this.images[0],
+            avatar: this.images.length == 0 ? this.user.avatar : this.images[0],
             name: this.user.name,
-            phone: this.user.phone
+            phone: this.user.phone,
+            city: this.user.city,
+            pay_rate: this.user.pay_rate
           }),
           config
         )
@@ -109,7 +123,7 @@ export default {
           console.log(response);
           if (response.data.success == true) {
             mui.toast("Update Successfullu!");
-            localStorage.setItem("user", JSON.stringify(response.data.user));
+            localStorage.setItem("user", JSON.stringify(response.data.cleaner));
             this.$router.push("/setting");
           } else {
             mui.toast("Failed");
@@ -150,5 +164,10 @@ export default {
 <style scoped>
 .mui-btn-block {
   padding: 5px 0px;
+}
+
+.mui-input-row select {
+    padding-left: 15px;
+
 }
 </style>

@@ -5,9 +5,9 @@
 			<h1  style="color:white" class="mui-title">Pending Order</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<router-link to="/service" class="mui-tab-item">
+			<router-link to="/schedule" class="mui-tab-item">
 				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">Services</span>
+				<span class="mui-tab-label">Schedule</span>
 			</router-link>
 			<router-link to="/order" class="mui-tab-item mui-active">
 				<span class="mui-icon mui-icon-list"></span>

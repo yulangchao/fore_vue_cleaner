@@ -6,9 +6,9 @@
 		</header>
     <div v-if="change_time" class="mui-popup-backdrop mui-active" style="display: block;"></div>
 		<nav class="mui-bar mui-bar-tab">
-			<router-link to="/service" class="mui-tab-item">
+			<router-link to="/schedule" class="mui-tab-item">
 				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">Services</span>
+				<span class="mui-tab-label">Schedule</span>
 			</router-link>
 			<router-link to="/order" class="mui-tab-item mui-active">
 				<span class="mui-icon mui-icon-list"></span>

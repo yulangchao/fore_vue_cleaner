@@ -13,7 +13,7 @@ import Finish from '@/components/Finish'
 import Book from '@/components/Book'
 import InService from '@/components/InService'
 import Order from '@/components/Order'
-import Service from '@/components/Service'
+import Schedule from '@/components/Schedule'
 import Login from '@/components/Login'
 import SignUp from '@/components/SignUp'
 import Review from '@/components/Review'
@@ -42,18 +42,18 @@ let router = new Router({
       name: 'SignUp',
       component: SignUp
     },
+    // {
+    //   path: '/hello',
+    //   name: 'Hello',
+    //   component: Hello,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
-      path: '/hello',
-      name: 'Hello',
-      component: Hello,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/service',
-      name: 'Service',
-      component: Service,
+      path: '/schedule',
+      name: 'Schedule',
+      component: Schedule,
       meta: {
         requiresAuth: true
       }
@@ -98,14 +98,14 @@ let router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/service/serviceform',
-      name: 'ServiceForm',
-      component: ServiceForm,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/service/serviceform',
+    //   name: 'ServiceForm',
+    //   component: ServiceForm,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/cleaner',
       name: 'Cleaner',
@@ -114,22 +114,22 @@ let router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/service/selectcleaner',
-      name: 'SelectCleaner',
-      component: SelectCleaner,
-      meta: {
-        requiresAuth: true
-      }
-    },
-    {
-      path: '/payment',
-      name: 'Payment',
-      component: Payment,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/service/selectcleaner',
+    //   name: 'SelectCleaner',
+    //   component: SelectCleaner,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
+    // {
+    //   path: '/payment',
+    //   name: 'Payment',
+    //   component: Payment,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/orderdetail',
       name: 'OrderDetail',
@@ -138,14 +138,14 @@ let router = new Router({
         requiresAuth: true
       }
     },
-    {
-      path: '/order/review',
-      name: 'Review',
-      component: Review,
-      meta: {
-        requiresAuth: true
-      }
-    },
+    // {
+    //   path: '/order/review',
+    //   name: 'Review',
+    //   component: Review,
+    //   meta: {
+    //     requiresAuth: true
+    //   }
+    // },
     {
       path: '/cleaner/review',
       name: 'CleanerReview',

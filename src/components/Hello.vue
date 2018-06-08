@@ -7,7 +7,7 @@
 		<nav class="mui-bar mui-bar-tab">
 			<a class="mui-tab-item">
 				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">Services</span>
+				<span class="mui-tab-label">Schedule</span>
 			</a>
 			<a class="mui-tab-item mui-active">
 				<span class="mui-icon mui-icon-list"></span>
