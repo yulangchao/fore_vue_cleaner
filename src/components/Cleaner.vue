@@ -14,8 +14,8 @@
 				<span class="mui-tab-label">Orders</span>
 			</router-link>
 			<router-link to="/cleaner" class="mui-tab-item mui-active">
-				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">Cleaners</span>
+				<span class="mui-icon mui-icon-flag"></span>
+				<span class="mui-tab-label">Summary</span>
 			</router-link>
 			<router-link to="/setting" class="mui-tab-item">
 				<span class="mui-icon mui-icon-gear"></span>

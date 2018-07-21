@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Hello from '@/components/Hello'
+import Summary from '@/components/Summary'
 import Setting from '@/components/Setting'
 import UserSetting from '@/components/UserSetting'
 import ServiceForm from '@/components/ServiceForm'
@@ -42,14 +42,14 @@ let router = new Router({
       name: 'SignUp',
       component: SignUp
     },
-    // {
-    //   path: '/hello',
-    //   name: 'Hello',
-    //   component: Hello,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: '/summary',
+      name: 'Summary',
+      component: Summary,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/schedule',
       name: 'Schedule',

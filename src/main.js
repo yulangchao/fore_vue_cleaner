@@ -12,6 +12,23 @@ Vue.use(infiniteScroll)
 Vue.use(common)
 Vue.config.productionTip = false
 
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+
+import { Lazyload } from 'mint-ui';
+import { Loadmore } from 'mint-ui';
+// import VueGeolocation from 'vue-browser-geolocation';
+// Vue.use(VueGeolocation);
+import { Popup } from 'mint-ui';
+
+Vue.component(Popup.name, Popup);
+Vue.component(Loadmore.name, Loadmore);
+Vue.use(Lazyload);
+Vue.use(MintUI)
+
+
+
+
 let app;
 let config = {
   apiKey: "AIzaSyBQTRelOWDFque5k-i9iAcZ2fAQBmp7_As",

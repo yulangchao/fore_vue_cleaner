@@ -58,6 +58,9 @@
             </select>
           </div>
         </div>
+				<div class="mui-input-row">
+					<input type="text" class="mui-input-clear"  v-model="user.address" placeholder="Address"  id="customer_address">
+				</div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary mui-btn-block" @click="change">Change</button>&nbsp;&nbsp;
         </div>
@@ -87,8 +90,10 @@ export default {
 
     console.log(this.user);
   },
-  watch: {
+  mounted() {
+    this.initAutocomplete();
   },
+  watch: {},
   methods: {
     showImage: function(selected_image) {
       this.selected_image = selected_image;
@@ -115,7 +120,10 @@ export default {
             name: this.user.name,
             phone: this.user.phone,
             city: this.user.city,
-            pay_rate: this.user.pay_rate
+            pay_rate: this.user.pay_rate,
+            address: this.user.address,
+            lat: this.user.lat,
+            lng: this.user.lng,
           }),
           config
         )
@@ -133,6 +141,34 @@ export default {
           mui.toast("Failed");
           console.log(error.response);
         });
+    },
+    initAutocomplete: function() {
+      var cityBounds = new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.006663, -123.30771),
+        new google.maps.LatLng(49.395186, -122.187598)
+      );
+      // Create the search box and link it to the UI element.
+
+      var input = document.getElementById("customer_address");
+      var options = {
+        bounds: cityBounds,
+        componentRestrictions: {
+          country: "ca"
+        }
+      };
+
+      var searchBox = new google.maps.places.Autocomplete(input, options);
+
+      // [START region_getplaces]
+      // Listen for the event fired when the user selects a prediction and retrieve
+      // more details for that place.
+      google.maps.event.addListener(searchBox, "place_changed", () => {
+        var place = searchBox.getPlace();
+        this.user.address = place.formatted_address;
+        this.user.lat = place.geometry.location.lat();
+        this.user.lng = place.geometry.location.lng();
+        console.log(this.user);
+      });
     },
     filesChange: function(e) {
       this.loading = true;
@@ -167,7 +203,6 @@ export default {
 }
 
 .mui-input-row select {
-    padding-left: 15px;
-
+  padding-left: 15px;
 }
 </style>

@@ -13,23 +13,23 @@
 				<span class="mui-icon mui-icon-list"></span>
 				<span class="mui-tab-label">Orders</span>
 			</router-link>
-			<router-link to="/cleaner" class="mui-tab-item">
-				<span class="mui-icon mui-icon-contact"></span>
-				<span class="mui-tab-label">Cleaners</span>
+			<router-link to="/summary" class="mui-tab-item">
+				<span class="mui-icon mui-icon-flag"></span>
+				<span class="mui-tab-label">Summary</span>
 			</router-link>
 			<router-link to="/setting" class="mui-tab-item">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">Settings</span>
 			</router-link>
 		</nav>
-		<div class="mui-content">
+		<div class="mui-content ">
 				<ul class="mui-card mui-table-view-chevron">
           <template v-for="index in 7 ">
-					<li class="mui-table-view-cell mui-collapse">
+					<li class="mui-table-view-cell mui-collapse schedule">
             <a class="mui-navigate-right" href="#" style="text-align:left;font-weight:bold">{{getDay(index)}}</a>
 						<ul class="mui-table-view mui-table-view-chevron">
               <template v-for="sub in scheduals" v-if="sub.day == index">
-                <li class="mui-table-view-cell sub-list">
+                <li class="mui-table-view-cell sub-list schedule">
               
                   <div class="mui-numbox">
                     <button class="mui-btn-numbox-minus" type="button" @click="(sub.start>1)?sub.start--:sub.start">-</button>
@@ -180,5 +180,22 @@ export default {
 }
 .mui-numbox button {
   width: 20px !important;
+}
+
+/* 暂时 */
+.mui-table-view {
+  background: transparent !important;
+}
+.mui-table-view:after,
+.mui-table-view:before,
+.mui-table-view-cell:after {
+  display: initial !important;
+}
+.mui-table-view-cell {
+  border-radius: 0px !important;
+  background: white !important;
+  margin: 0px !important;
+  box-shadow: 0 1px 2px rgba(12, 12, 12, 0.3) !important;
+  /* box-shadow: rosybrown; */
 }
 </style>
