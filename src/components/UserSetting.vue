@@ -44,11 +44,11 @@
 					<input type="number" class="mui-input-clear"  v-model="user.phone" placeholder="Phone">
 				</div>
 				<div class="mui-input-row">
-					<input type="number" class="mui-input-clear"  v-model="user.pay_rate" placeholder="Pay rate">
+					<input :disabled="user.pay_rate!=''" type="number" class="mui-input-clear"  v-model="user.pay_rate" placeholder="Pay rate">
 				</div>
         <div class="mui-input-row">
-          <div class="">
-            <select class="" v-model="user.city">
+          <div class=""> 
+            <select :disabled="user.city!=''" v-model="user.city">
                 <option value="null">City</option>
                 <option value="1">Vancouver</option>
                 <option value="2">Richmond</option>
@@ -59,7 +59,7 @@
           </div>
         </div>
 				<div class="mui-input-row">
-					<input type="text" class="mui-input-clear"  v-model="user.address" placeholder="Address"  id="customer_address">
+					<input :disabled="user.address!=''" type="text" class="mui-input-clear"  v-model="user.address" placeholder="Address"  id="customer_address">
 				</div>
 					<div class="mui-button-row">
 						<button type="button" class="mui-btn mui-btn-primary mui-btn-block" @click="change">Change</button>&nbsp;&nbsp;

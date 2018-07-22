@@ -1,47 +1,44 @@
 <template>
 	<body>
 		<header class="mui-bar mui-bar-nav">
-      <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 style="color:white" class="mui-title">{{cleaner.name}}'s Comments</h1>
+      <a @click="navBack" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 style="color:white" class="mui-title">{{order.user_other.name}}'s Reviews</h1>
 		</header>
     <div class="weui-gallery" v-if="selected_image" style="display:block">
-      <span class="weui-gallery__img"  @click="closeImage()" :style="'background-image: url('+selected_image+');height: 100vh;'"></span>
-      <a href="javascript:" class="weui-gallery__del"   @click="PrevImage()" style="width:50px;left:0;height:100vh;position:absolute;z-index:1000">
-        <i style="position:absolute;top:50vh;left:5px;    font-size: 30px;color:#eb482f" class="fas fa-chevron-circle-left"></i>
-      </a>
-      <a href="javascript:" class="weui-gallery__del" @click="NextImage()" style="width:50px;right:0;height:100vh;position:absolute;z-index:1000">
-        <i style="position:absolute;top:50vh;right: 5px;    font-size: 30px;color:#eb482f" class="fas fa-chevron-circle-right" ></i>
-      </a>
+      <span class="weui-gallery__img"  @click="closeImage()" :style="'background-image: url('+selected_image+')'"></span>
       <div class="weui-gallery__opr">
-
+						<a href="javascript:" class="weui-gallery__del"   @click="PrevImage()" style="width:50%;float:left">
+              <i class="fas fa-chevron-circle-left"></i>
+						</a>
+            <a href="javascript:" class="weui-gallery__del" @click="NextImage()" style="width:50%;float:left">
+              <i style="fonts"class="fas fa-chevron-circle-right" ></i>
+						</a>
 			</div>
     </div>
 		<div class="mui-content" style="padding-bottom:50px;">
-      <ul v-if="cleaner" class="mui-table-view mui-table-view-chevron" style="margin-top:0px">
+      <ul v-if="this.order.user_id" class="mui-table-view mui-table-view-chevron" style="margin-top:0px">
         <li class="mui-table-view-cell mui-media">
           <a class="" href="#account">
-            <img class="mui-media-object mui-pull-left head-img" id="head-img" :src="cleaner.avatar == null ?url() : cleaner.avatar ">
+            <img class="mui-media-object mui-pull-left head-img"  style="border-radius: 100%" id="head-img" v-lazy="order.user_other.avatar == null ?url() : order.user_other.avatar ">
             <div class="mui-media-body" style="text-align:left">
-              <h4>{{cleaner.name}}              
-                <template v-for="i in cleaner.rate">
+              <h4>{{order.user_other.name}}              
+                <template v-for="i in order.user_other.rate">
                       <i data-index="1" style="color: goldenrod;" class="mui-icon mui-icon-star-filled"></i>
                 </template>
                 
               </h4>
 
-              <p class='mui-ellipsis'>{{getCityName(cleaner.city)}}
-                 <span style="position:absolute;right:10px">Total Orders: {{cleaner.pay_rate}}</span>
-                 <span style="position:absolute;right:10px;top:15px">Pay Rate: ${{cleaner.pay_rate}}/hr</span>
-              </p>
+              
             </div>
+
           </a>
         </li>
       </ul>
-      <h5>Comments</h5>
-			<ul class="mui-table-view">
+      <h5 class="font-bold">Comments</h5>
+			<ul v-if="data" class="mui-table-view">
         <template v-for="review in data">
           <div class="mui-table-view-cell mui-input-row mui-media mui-left">
-              <img class="mui-media-object mui-pull-left" style="border-radius: 100%" :src="review.avatar == null ? url() :review.avatar ">
+              <img class="mui-media-object mui-pull-left" style="border-radius: 100%;width:79px !important" v-lazy="review.avatar == null ? url() :review.avatar ">
               <h5 class="mui-pull-right"></h5>
               <div class="mui-media-body">
                 <p class="mui-pull-right">{{review.created_at.split(" ")[0]}}</p>
@@ -55,7 +52,8 @@
                 </p>
                 <p class='mui-ellipsis' style="text-align: left;white-space: pre-line;word-wrap: break-word;">{{review.comments}}</p>
               </div>
-          		<div v-if="JSON.parse(review.images).length>0" class="weui-uploader" style="padding: 10px;">
+
+          		<div v-if="review.images !=null && JSON.parse(review.images).length>0" class="weui-uploader" style="padding: 10px;">
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
                       <template v-for="image of JSON.parse(review.images)"> 
@@ -66,9 +64,10 @@
             </div>
           </div>
         </template>
+        
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
           <p v-if="busy && loading"><span class="mui-spinner"></span></p>
-          <p v-if="!loading">End of Reviews</p>
+          <p v-if="!loading"  class="font-bold">End Of Reviews</p>
         </div>
 			</ul>
 		</div>
@@ -80,40 +79,45 @@
 import axios from "axios";
 var count = 0;
 export default {
-  name: "cleanerReview",
+  name: "userReview",
   data() {
     return {
       busy: false,
       data: [],
       page: 0,
       loading: true,
-      cleaner: null,
+      user: null,
       selected_image: null,
-      ga_images: []
+      ga_images: [],
+      user_id: null,
+      order: null
     };
   },
   created() {
-    if (!this.$route.params.cleaner) {
-      this.$router.push("/setting");
-    }
-    this.cleaner = this.$route.params.cleaner;
+      if (!this.$route.params.user_id){
+          this.$router.go(-1);
+      }
+      this.user_id  =this.$route.params.user_id;
+      this.order = this.$route.params.order
 
   },
   methods: {
+    navBack() {
+      this.$router.push({
+        name: "OrderDetail",
+        params: { order:this.order }
+      });
+    },
     NextImage: function() {
       let index = this.ga_images.indexOf(this.selected_image);
       if (index < this.ga_images.length - 1) {
         this.selected_image = this.ga_images[index + 1];
-      }else{
-        mui.toast("No More Images");
       }
     },
     PrevImage: function() {
       let index = this.ga_images.indexOf(this.selected_image);
       if (index > 0) {
         this.selected_image = this.ga_images[index - 1];
-      }else{
-        mui.toast("No More Images");
       }
     },
     showImage: function(selected_image, ga_images) {
@@ -142,9 +146,9 @@ export default {
       setTimeout(() => {
         axios
           .post(
-            "http://foreclean.tk:8000/api/getReviewForCleaner",
+            "http://foreclean.tk:8000/api/getReviewForClient",
             JSON.stringify({
-              cleaner_id: this.cleaner.id,
+              user_id: this.user_id,
               offset: this.page * 10
             })
           )
@@ -160,7 +164,7 @@ export default {
                 this.busy = false;
               }
             } else {
-              mui.toast("数据获取失败");
+              mui.toast("Getting Data Failed!");
             }
           })
           .catch(error => {
@@ -195,15 +199,5 @@ export default {
 }
 .mui-android .mui-modal .mui-bar {
   position: absolute !important;
-}
-
-.mui-table-view .mui-media-object {
-    width: 42px;
-    height: 42px;
-    line-height: 42px;
-}
-
-#head-img{
-  border-radius: 100%;
 }
 </style>

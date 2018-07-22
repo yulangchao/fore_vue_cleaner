@@ -161,7 +161,7 @@ export default {
   left: 15px !important;
 }
 .mui-content > .mui-card:first-child {
-  margin-top: 55px !important;
+  margin-top: 15px !important;
 }
 .submit {
   margin-bottom: 0px;

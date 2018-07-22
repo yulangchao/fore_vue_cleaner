@@ -40,7 +40,7 @@
         <ul class="mui-table-view">
           <template v-if="cleaner">
             <div class="mui-table-view-cell mui-input-row mui-media mui-left">
-                <img class="mui-media-object mui-pull-left" style="border-radius: 2px" :src="cleaner.avatar==null? url() : cleaner.avatar">
+                <img class="mui-media-object mui-pull-left" style="border-radius: 100%" :src="cleaner.avatar==null? url() : cleaner.avatar">
                 <!-- <button type="button" class="mui-btn mui-btn-primary view-btn" @click="dialog" >Select</button> -->
                 <h5 class="mui-pull-right"></h5>
                 <div class="mui-media-body">

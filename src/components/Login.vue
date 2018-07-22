@@ -1,7 +1,7 @@
 <template>
 <body>
 		<header class="mui-bar mui-bar-nav">
-			<h1 style="color:white" class="mui-title">Login</h1>
+			<h1 style="color:white" class="mui-title">Cleaner Login</h1>
 		</header>
 		<div id="modal" v-if="loading" class="mui-modal mui-active" style="opacity: 0.6;">
           <span class="mui-spinner" style="    top: 50%;
@@ -12,7 +12,7 @@
 		</div>
 		<div class="mui-content mui-text-center" style="background: transparent;color:white;margin:0 50px;">
 
-			<img style="width:100%;margin:60px 0px 30px 0px" src="https://static.wixstatic.com/media/1da006_55b6d2136ae945e58b7b3c614253450b~mv2.png/v1/fill/w_258,h_64,al_c/1da006_55b6d2136ae945e58b7b3c614253450b~mv2.png">
+			<img style="width:100%;margin:60px 0px 30px 0px" src="../assets/logo1.png">
 
 	
 

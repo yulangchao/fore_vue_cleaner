@@ -16,7 +16,7 @@
             <ul v-if="cleaner" class="mui-table-view mui-table-view-chevron" style="margin-top:0px">
               <li class="mui-table-view-cell mui-media">
                 <a class="" href="#account">
-                  <img class="mui-media-object mui-pull-left head-img" id="head-img" :src="cleaner.avatar == null ?url() :  cleaner.avatar">
+                  <img class=" head-img" id="head-img" :src="cleaner.avatar == null ?url() :  cleaner.avatar">
                   <div class="mui-media-body" style="text-align:left">
                     <h4>{{cleaner.name}}              
                       <template v-for="i in cleaner.rate">
@@ -82,7 +82,7 @@
 			<ul class="mui-table-view">
         <template>
           <div class="mui-table-view-cell mui-input-row mui-media mui-left">
-              <img class="mui-media-object mui-pull-left" style="border-radius: 2px" src="http://foreclean.tk:8000/storage/files/May2018/9OFHyqBtWwZqbebh4e9V.png">
+              <img class="mui-media-object mui-pull-left" style="border-radius: 100%" src="http://foreclean.tk:8000/storage/files/May2018/9OFHyqBtWwZqbebh4e9V.png">
               <button type="button" class="mui-btn mui-btn-primary view-btn" @click="dialog" >Select</button>
               <h5 class="mui-pull-right"></h5>
               <div class="mui-media-body" @click="view(premium_cleaner)">
@@ -121,7 +121,7 @@
         </template>
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
           <p v-if="busy && loading"><span class="mui-spinner"></span></p>
-          <p v-if="!loading">No More Cleaners</p>
+          <p v-if="!loading">End of Cleaners</p>
         </div>
 			</ul>
 		</div>

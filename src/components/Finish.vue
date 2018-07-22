@@ -35,9 +35,9 @@
         <template v-for="da in data">
           <li class="mui-table-view-cell mui-media">
             <a href="javascript:;">
-              <!-- <router-link :to="{ name: 'Review', params: { order: da}}" class="mui-btn mui-btn-primary" v-if="da.order_status== 6 && da.review_status == null" style="padding: 3px 10px;top: 95px;right: 10px;">
+              <router-link :to="{ name: 'Review', params: { order: da}}" class="mui-btn mui-btn-primary" v-if="da.order_status== 6 && da.client_review == null" style="padding: 3px 10px;top: 95px;right: 10px;">
                 Review
-              </router-link> -->
+              </router-link>
               <h5 class="mui-pull-right">${{da.price}}</h5>
               <router-link :to="{ name: 'OrderDetail', params: { order: da}}" class="mui-media-body">
                 <h4 class='mui-ellipsis' style="text-align:left;margin:0px;padding:5px 0px;">{{getOrderType(da.order_type)}}&nbsp;&nbsp;
@@ -54,7 +54,7 @@
         </template>
         <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="10">
           <p v-if="busy && loading"><span class="mui-spinner"></span></p>
-          <p v-if="!loading">No More Order</p>
+          <p v-if="!loading">End of Order</p>
         </div>
 			</ul>
 		</div>

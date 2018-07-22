@@ -2,26 +2,26 @@
 	<body>
 		<header class="mui-bar mui-bar-nav">
       <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1  style="color:white" v-if="user" class="mui-title">{{user.name}}'s Review</h1>
+			<h1  style="color:white;text-transform: capitalize;" v-if="cleaner" class="mui-title">{{cleaner.name}}'s Review</h1>
 		</header>
-		<nav class="mui-bar mui-bar-tab">
-			<router-link to="/schedule" class="mui-tab-item">
+		<!-- <nav class="mui-bar mui-bar-tab">
+			<router-link to="/service" class="mui-tab-item">
 				<span class="mui-icon mui-icon-home"></span>
-				<span class="mui-tab-label">Schedule</span>
+				<span class="mui-tab-label">Services</span>
 			</router-link>
 			<router-link to="/order" class="mui-tab-item mui-active">
 				<span class="mui-icon mui-icon-list"></span>
 				<span class="mui-tab-label">Orders</span>
 			</router-link>
-			<router-link to="/summary" class="mui-tab-item">
-				<span class="mui-icon mui-icon-flag"></span>
-				<span class="mui-tab-label">Summary</span>
+			<router-link to="/cleaner" class="mui-tab-item">
+				<span class="mui-icon mui-icon-contact"></span>
+				<span class="mui-tab-label">Cleaners</span>
 			</router-link>
 			<router-link to="/setting" class="mui-tab-item">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">Settings</span>
 			</router-link>
-		</nav>
+		</nav> -->
 		<div id="modal" v-if="loading" class="mui-modal mui-active" style="opacity: 0.6;">
           <span class="mui-spinner" style="    top: 50%;
         position: absolute;
@@ -30,18 +30,56 @@
         right: 0;    margin: auto;"></span>
 		</div>
 		<div class="mui-content">
-			<ul class="mui-table-view mui-table-view-chevron">
-				<li class="mui-table-view-cell mui-media">
-					<a class="">
-						<img v-if="user" class="mui-media-object mui-pull-left head-img" id="head-img" :src="user.avatar==null? url() :  user.avatar">
-						<div v-if="user" class="mui-media-body">
-							{{user.name}}
-						</div>
-					</a>
-				</li>
-			</ul>
+		    <ul v-if="order" class="mui-table-view mui-table-view-striped mui-table-view-condensed">
+		        <li class="mui-table-view-cell">
+		            <div class="mui-table">
+		                <div class="mui-table-cell mui-col-xs-12 mui-text-left">
+		                    <h4 class="mui-ellipsis" style="white-space:initial">{{order.address}}</h4>
+                        <h5 style="font-weight:bold;color:#EB482F ">Status: {{getOrderStatus(order.order_status)}}</h5>
+		                    <h5 style="font-weight:bold">Booked Time: {{order.time.replace("T", " ").split(".")[0]}} + <span style="color:red"> {{order.hours}} Hours</span></h5>
+                        <h5 style="font-weight:bold">Created Time: {{order.created_at}}</h5>
+		                    <p class="mui-h6 mui-ellipsis">
+                          <button type="button" class="mui-btn mui-btn-primary">Bedroom <span class="mui-badge mui-badge-primary">{{order.bedroom}}</span></button>
+                          &nbsp;<button type="button" class="mui-btn mui-btn-success">Bathroom <span class="mui-badge mui-badge-success">{{order.bathroom}}</span></button>
+                          <template v-for="additional of order.additional">
+                                <div style="font-size:15px"><i class="fas fa-check-circle"></i>    {{getAdditionalName(additional)}}</div>
+                          </template>
+                        </p>
+		                </div>
+		                <!-- <div class="mui-table-cell mui-col-xs-2 mui-text-right">
+		                    <span class="mui-h5">12:25</span>
+		                </div> -->
+		            </div>
+		        </li>
+		    </ul>
+        <h5>Client Info</h5>
+        <ul v-if="order" class="mui-table-view">
+          <template v-if="order">
+            <div class="mui-table-view-cell mui-input-row mui-media mui-left">
+                <img class="mui-media-object mui-pull-left" style="border-radius:100%" v-lazy="order.user_other.avatar==null?url() : order.user_other.avatar">
+                
+                <h5 class="mui-pull-right"></h5>
+                <div class="mui-media-body">
+
+                  <h4 class='mui-ellipsis' style="text-align:left">{{order.name}}&nbsp;
+                    <template v-for="i in order.user_other.rate">
+                        <i data-index="1" style="color: goldenrod;font-size:15px !important" class="mui-icon mui-icon-star-filled"></i>
+                    </template>
+                  </h4>
+                  <p class="mui-h6 mui-ellipsis" style="text-align:left">Phone: {{order.phone}}</p>
+                </div>
+            
+            </div>
+          </template>
+        </ul>
+
+			<div class="mui-content-padded">
+				<h5 class="mui-inline">Review Comments:</h5>
+
+			</div>
+
 			<div class="mui-content-padded" style="margin-left: 6px;">
-				<div class="mui-inline">Rate:</div>
+				<h5 class="mui-inline">Rate:</h5>
 				<div class="icons mui-inline" style="margin-left: 6px;">
 					<i data-index="1" class="mui-icon mui-icon-star"></i>
 					<i data-index="2" class="mui-icon mui-icon-star"></i>
@@ -50,12 +88,10 @@
 					<i data-index="5" class="mui-icon mui-icon-star"></i>
 				</div>
 			</div>
-			<div class="mui-content-padded">
-				<div class="mui-inline">Comments</div>
+      
 
-			</div>
 			<div class="row mui-input-row">
-				<textarea id='question' v-model="comments" class="mui-input-clear question" placeholder="Please Give a Comment"></textarea>
+				<textarea id='question' v-model="comments" class="mui-input-clear question" placeholder="Please Give a Review Comment"></textarea>
 			</div>
 
 
@@ -67,7 +103,7 @@
 						</a>
 				</div>
 			</div>
-			<div class="weui-uploader" style="padding: 10px;">
+			<!-- <div class="weui-uploader" style="padding: 10px;margin-bottom: 100px;">
 					<div class="weui-uploader__hd">
 							<p class="weui-uploader__title">Image Upload</p>
 							<div class="weui-uploader__info">{{images.length}}/5</div>
@@ -82,7 +118,7 @@
 									<input id="uploaderInput" name="attach" @change="filesChange($event)" class="weui-uploader__input" type="file" accept="image/*" multiple />
 							</div>
 					</div>
-			</div>
+			</div> -->
 
 		</div>
 		<button class="mui-btn mui-btn-primary  mui-btn-block submit" @click="sendReview">提交</button>
@@ -103,18 +139,36 @@ export default {
       comments: "",
       images: [],
       selected_image: null,
-			order: null,
-			rate: 0,
-      loading: false
+      order: null,
+      rate: 0,
+      loading: false,
+      cleaner: null
     };
   },
+  created() {},
   mounted() {
     this.user = JSON.parse(localStorage.getItem("user"));
     if (!this.$route.params.order) {
       this.$router.push("/order/finish");
     }
     this.order = this.$route.params.order;
-    mui(".icons").on("tap", "i", (e) => {
+    axios
+      .post(
+        "http://foreclean.tk:8000/api/getCleanerList",
+        JSON.stringify({ cleaner_id: this.order.cleaner_id })
+      )
+      .then(response => {
+        console.log(response);
+        if (response.data.success == true) {
+          this.cleaner = response.data.cleaners[0];
+        } else {
+          mui.toast(response.data.error);
+        }
+      })
+      .catch(error => {
+        console.log(error.response);
+      });
+    mui(".icons").on("tap", "i", e => {
       var index = parseInt(e.target.getAttribute("data-index"));
       var parent = e.target.parentNode;
       var children = parent.children;
@@ -129,8 +183,8 @@ export default {
           children[i].classList.remove("mui-icon-star-filled");
         }
       }
-			this.starIndex = index;
-			this.rate = this.starIndex;
+      this.starIndex = index;
+      this.rate = this.starIndex;
     });
   },
   methods: {
@@ -147,24 +201,23 @@ export default {
       let i = 0;
       for (let file of e.target.files) {
         this.loading = true;
-          firebase
-            .storage()
-            .ref("/images/" + date + "/" + new Date().getTime() + i++)
-            .put(file)
-            .then(snapshot => {
-              if (this.images.length < 5){
-                console.log("Uploaded a blob or file!");
-                this.images.push(snapshot.metadata.downloadURLs[0]);
-                console.log(snapshot.metadata.downloadURLs[0]);
-                
-              }
-              this.loading = false;
-            });
+        firebase
+          .storage()
+          .ref("/images/" + date + "/" + new Date().getTime() + i++)
+          .put(file)
+          .then(snapshot => {
+            if (this.images.length < 5) {
+              console.log("Uploaded a blob or file!");
+              this.images.push(snapshot.metadata.downloadURLs[0]);
+              console.log(snapshot.metadata.downloadURLs[0]);
+            }
+            this.loading = false;
+          });
       }
       console.log(this.images);
     },
     sendReview: function() {
-			console.log(this.rate);
+      console.log(this.rate);
       let config = {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("access_token")
@@ -172,7 +225,7 @@ export default {
       };
       axios
         .post(
-          "http://foreclean.tk:8000/api/postReviewForCleaner",
+          "http://foreclean.tk:8000/api/postReviewForClient",
           JSON.stringify({
             images: JSON.stringify(this.images),
             order_id: this.order.id,
@@ -186,8 +239,8 @@ export default {
         .then(response => {
           console.log(response);
           if (response.data.success == true) {
-						mui.toast("评价成功");
-						this.$router.push("/order/finish")
+            mui.toast("Reviewed Successfully!");
+            this.$router.push("/order/finish");
           } else {
             mui.toast("Failed");
           }
@@ -203,6 +256,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.submit{
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 0px;
+  padding: 10px 0px;
+}
 .mui-content {
   padding-top: 0px;
 }
@@ -319,7 +378,7 @@ textarea::-webkit-input-placeholder {
 }
 .mui-icon-star-filled {
   color: #ffb400;
-  font-size: 22px;
+  font-size: 22px !important;
 }
 .mui-popover {
   height: 180px;
@@ -330,4 +389,8 @@ textarea::-webkit-input-placeholder {
 .mui-plus-stream .stream {
   display: block;
 }
+.submit{
+  max-width: 768px !important;
+}
+
 </style>

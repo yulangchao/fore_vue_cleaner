@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Summary from '@/components/Summary'
+import ClientReview from '@/components/ClientReview'
 import Setting from '@/components/Setting'
 import UserSetting from '@/components/UserSetting'
 import ServiceForm from '@/components/ServiceForm'
@@ -122,14 +123,14 @@ let router = new Router({
     //     requiresAuth: true
     //   }
     // },
-    // {
-    //   path: '/payment',
-    //   name: 'Payment',
-    //   component: Payment,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: '/clientReview',
+      name: 'ClientReview',
+      component: ClientReview,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/orderdetail',
       name: 'OrderDetail',
@@ -138,14 +139,14 @@ let router = new Router({
         requiresAuth: true
       }
     },
-    // {
-    //   path: '/order/review',
-    //   name: 'Review',
-    //   component: Review,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+    {
+      path: '/order/review',
+      name: 'Review',
+      component: Review,
+      meta: {
+        requiresAuth: true
+      }
+    },
     {
       path: '/cleaner/review',
       name: 'CleanerReview',

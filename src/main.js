@@ -26,7 +26,11 @@ Vue.component(Loadmore.name, Loadmore);
 Vue.use(Lazyload);
 Vue.use(MintUI)
 
-
+import Datetime from 'vue-datetime'
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css'
+Vue.component('datetime', Datetime);
+Vue.use(Datetime)
 
 
 let app;
